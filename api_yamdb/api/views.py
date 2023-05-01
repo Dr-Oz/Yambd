@@ -1,11 +1,12 @@
 from django.core.mail import EmailMessage
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from review.models import User
-from .serializers import UserSerializer
+from .serializers import UsersSerializer
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
@@ -13,9 +14,9 @@ from rest_framework import permissions, status, viewsets
 from .permissions import (AdminModeratorAuthorPermission, AdminOnly,
                           IsAdminUserOrReadOnly)
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
+class UsersViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UsersSerializer
     permission_classes = (IsAuthenticated, AdminOnly,)
     lookup_field = 'username'
     filter_backends = (SearchFilter,)
@@ -107,3 +108,5 @@ class ApiGetToken(APIView):
         return Response(
             {'confirmation_code': 'Неверный код подтверждения!'},
             status=status.HTTP_400_BAD_REQUEST)
+
+class CategoryViewSet(viewsets.ModelViewSet)

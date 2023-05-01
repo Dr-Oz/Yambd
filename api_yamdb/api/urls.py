@@ -1,10 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
-from .views import UserViewSet, APISignup, ApiGetToken
+from .views import UsersViewSet, APISignup, ApiGetToken
 app_name = 'api'
 router = SimpleRouter()
-router.register(r'users', UserViewSet, basename='users')
+router.register(r'users', UsersViewSet, basename='users')
+router.register('categories', CategoryViewSet, basename='category')
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),

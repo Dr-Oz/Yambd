@@ -91,3 +91,15 @@ def post_save(sender, instance, created, **kwargs):
         confirmation_code = default_token_generator.make_token(instance)
         instance.confirmation_code = confirmation_code
         instance.save()
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название категории")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return f'{self.name} {self.name}'
