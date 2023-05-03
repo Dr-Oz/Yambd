@@ -14,3 +14,10 @@ def validate_username(value):
             (f'Не допустимые символы <{value}> в нике.'),
             params={'value': value},
         )
+
+def validate_year(value):
+    now = timezone.now().year
+    if value > now:
+        raise ValidationError(
+            f'{value} не может быть больше {now}'
+        )
